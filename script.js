@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const speakerNotes = {
     1: {
       topic: "Introduction & Team Identity",
-      notes: "Halo semuanya dan selamat datang pada presentasi tugas Case Based Searching mata kuliah Kecerdasan Buatan. Saya Ilham bersama rekan saya Lian dari kelompok kami. Pada kesempatan ini, kami mempresentasikan perancangan dan implementasi Algoritma Genetika yang kami bangun murni dari nol (from scratch) untuk menyelesaikan permasalahan optimasi minimasi fungsi non-linear kompleks multivariat."
+      notes: "Halo semuanya dan selamat datang pada presentasi tugas Case Based Searching mata kuliah Kecerdasan Buatan. Saya Ilham Lii Assidaq bersama rekan saya Lian dari kelompok kami. Pada kesempatan ini, kami mempresentasikan perancangan dan implementasi Algoritma Genetika yang kami bangun murni dari nol (from scratch) untuk menyelesaikan permasalahan optimasi minimasi fungsi non-linear kompleks multivariat."
     },
     2: {
       topic: "Definisi Masalah & Fungsi Objektif",

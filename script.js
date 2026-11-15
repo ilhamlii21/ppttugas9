@@ -25,47 +25,47 @@ document.addEventListener('DOMContentLoaded', () => {
   const notesSlideNum = document.getElementById('notesSlideNum');
   const timerDisplay = document.getElementById('timerDisplay');
 
-  // Speaker notes script dictionary (synced with PPT.md)
+  // Speaker notes script dictionary (synced with Binary GA code)
   const speakerNotes = {
     1: {
       topic: "Introduction & Team Identity",
-      notes: "Halo semuanya dan selamat datang pada presentasi tugas Case Based Searching mata kuliah Kecerdasan Buatan. Saya Ilham Lii Assidaq bersama rekan saya Lian dari kelompok kami. Pada kesempatan ini, kami mempresentasikan perancangan dan implementasi Algoritma Genetika yang kami bangun murni dari nol (from scratch) untuk menyelesaikan permasalahan optimasi minimasi fungsi non-linear kompleks multivariat."
+      notes: "Halo semuanya dan selamat datang pada presentasi tugas Case Based Searching mata kuliah Kecerdasan Buatan. Saya Ilham Lii Assidaq bersama rekan saya Lian dari kelompok kami. Pada kesempatan ini, kami mempresentasikan perancangan dan implementasi Algoritma Genetika Biner (Binary-Coded GA) yang kami bangun murni dari nol untuk menyelesaikan permasalahan optimasi fungsi non-linear multivariat."
     },
     2: {
       topic: "Definisi Masalah & Fungsi Objektif",
-      notes: "Permasalahan yang kami selesaikan adalah mencari nilai x1 dan x2 pada interval [-10, 10] yang meminimalkan fungsi f(x1, x2). Tantangan utama fungsi ini terletak pada komponen tan(x1 + x2) yang memiliki asimtot tegak pada pi/2 + k*pi. Ketika input mendekati asimtot, nilai fungsi dapat turun drastis menuju minus tak hingga. Hal ini menuntut desain algoritma genetika yang kokoh agar tidak bias atau rusak secara numerik."
+      notes: "Tujuan tugas ini adalah mencari nilai x1 dan x2 pada rentang domain [-10, 10] yang meminimalkan fungsi objektif f(x1, x2). Tantangan paling krusial fungsi ini terletak pada komponen tan(x1 + x2) yang memiliki singularitas atau asimtot tegak ketika cosinusnya mendekati nol. Untuk mencegah program rusak atau overflow, kelompok kami merancang filter singularitas eksplisit dengan ambang batas epsilon 10 pangkat minus 4."
     },
     3: {
       topic: "Arsitektur Sistem & Siklus GA",
-      notes: "Berdasarkan pedoman tugas, kami mengimplementasikan seluruh komponen GA secara mandiri tanpa menggunakan library pihak ketiga. Alur yang kami bangun menerapkan Varian 3, dimulai dari inisialisasi 74 individu berkode riil, dekode pemetaan linear, perhitungan fitness terkompresi logaritmik, seleksi roulette wheel, operasi pindah silang aritmatika, mutasi gaussian, dan elitisme untuk menjaga individu terbaik."
+      notes: "Sesuai regulasi tugas, seluruh proses GA dibangun murni menggunakan modul standar Python math dan random tanpa bantuan library GA eksternal. Alur kerja algoritma dimulai dari inisialisasi 74 kromosom biner 32-bit, dekode ke desimal, evaluasi fitness invers berproteksi singularitas, seleksi turnamen ukuran 3, one-point crossover, mutasi bit-flip, serta elitisme 2 individu terbaik."
     },
     4: {
       topic: "Representasi Kromosom & Metode Dekode",
-      notes: "Kromosom dirancang menggunakan representasi Real-Coded dengan 2 gen bernilai desimal antara 0.0 dan 1.0. Untuk mengevaluasi ke dalam fungsi objektif, gen tersebut didekode secara linear ke domain minus 10 hingga 10. Pendekatan real-coded ini sangat ideal untuk masalah optimasi kontinu karena menghindari masalah resolusi diskrit yang biasa terjadi pada representasi biner."
+      notes: "Kromosom direpresentasikan sebagai untaian biner sepanjang 32 bit, di mana 16 bit pertama mengkodekan variabel x1 dan 16 bit berikutnya untuk x2. Masing-masing gen 16-bit dikonversi ke nilai desimal integer lalu dipetakan secara linear ke domain minus 10 hingga 10. Pendekatan 16-bit ini memberikan resolusi pencarian yang sangat presisi hingga 0,0003 per step bit."
     },
     5: {
-      topic: "Inovasi Fitness & Kompresi Logaritmik",
-      notes: "Karena tujuan kita adalah minimasi, nilai f dikalikan minus satu agar menjadi masalah maksimasi. Namun, karena adanya asimtot tangen, nilai g bisa melonjak sangat besar dan memonopoli seleksi. Solusi inovatif yang kelompok kami terapkan adalah pergeseran baseline dan kompresi logaritmik: ln(1 + g - g_min). Melalui kompresi ini, individu terbaik tetap memiliki peluang tertinggi, namun individu lain tetap berkesempatan berevolusi."
+      topic: "Inovasi Fitness & Filter Singularitas",
+      notes: "Untuk menangani masalah minimasi, kami menggunakan fungsi fitness invers 1 dibagi (1 + selisih nilai f terhadap minimum populasi). Yang terpenting, kandidat yang memiliki nilai cos(x1 + x2) lebih kecil dari 10 pangkat minus 4 langsung didiskualifikasi dan diberi fitness 0,0. Ini menjamin populasi berevolusi di zona aman tanpa pernah memicu ZeroDivisionError."
     },
     6: {
-      topic: "Mekanisme Seleksi Orang Tua (Roulette Wheel)",
-      notes: "Untuk memilih orang tua yang akan bereproduksi, kami menggunakan metode Roulette Wheel Selection. Peluang terpilihnya suatu kromosom berbanding lurus dengan nilai fitness terkompresinya. Dengan memanfaatkan kumulatif fitness dan sampling acak, algoritma kami menyeimbangkan aspek eksploitasi solusi terbaik dengan eksplorasi gen-gen baru."
+      topic: "Mekanisme Seleksi Orang Tua (Tournament)",
+      notes: "Untuk seleksi orang tua, kami menerapkan Tournament Selection dengan ukuran turnamen k = 3. Tiga individu diambil secara acak dari populasi, lalu diadu nilai fitness-nya. Pemenang turnamen langsung terpilih sebagai induk. Metode ini sangat unggul karena kebal terhadap distorsi skala nilai dan memberikan tekanan seleksi yang seimbang."
     },
     7: {
-      topic: "Operasi Genetik (Crossover & Mutasi)",
-      notes: "Operasi reproduksi genetik terdiri dari Arithmetic Crossover dan Gaussian Mutation. Pindah silang aritmatika dengan probabilitas 0.75 menghasilkan kombinasi linear halus antara kedua orang tua. Sedangkan mutasi Gaussian dengan simpangan baku 0.05 dan probabilitas 15% memberikan sedikit derau acak agar algoritma tidak terjebak pada optimum lokal."
+      topic: "Operasi Genetik (Crossover & Mutasi Biner)",
+      notes: "Operasi reproduksi genetik menggunakan One-Point Crossover dengan probabilitas 0,85, di mana satu titik potong acak dipilih untuk saling menukar segmen kromosom induk. Sedangkan mutasi menggunakan Bit-Flip Mutation dengan probabilitas 0,02 per bit, di mana setiap bit berpeluang untuk dibalik nilainya guna mencegah algoritma terjebak pada optimum lokal."
     },
     8: {
       topic: "Pergantian Generasi (Elitisme) & Terminasi",
-      notes: "Untuk pergantian generasi, kami menerapkan elitisme 5 persen, di mana 4 individu terbaik langsung diselamatkan ke generasi berikutnya agar pencapaian terbaik tidak hilang. Proses evolusi ini dikendalikan oleh tiga kriteria penghentian: tercapainya target ekstrem minus satu juta, batas 250 generasi, atau kondisi stagnan selama 40 generasi berturut-turut."
+      notes: "Pada pergantian generasi, kami menerapkan elitisme 2 individu terbaik yang langsung disalin ke generasi baru tanpa modifikasi. Sisanya diisi oleh 72 keturunan hasil reproduksi. Proses evolusi dibatasi maksimal 250 generasi dan dilengkapi kriteria henti jika terjadi stagnasi selama 50 generasi berturut-turut, dengan RANDOM_SEED = 42 agar hasil selalu dapat direplikasi."
     },
     9: {
       topic: "Hasil Eksperimen & Analisis Output",
-      notes: "Berikut adalah hasil pengujian program yang kami jalankan. Program berhenti pada generasi ke-116 karena tercapainya kondisi konvergensi stagnan selama 40 generasi. Solusi terbaik yang diperoleh menghasilkan kromosom dengan dekode x1 sekitar minus 1.8018 dan x2 sekitar 0.2312, dengan nilai minimum fungsi mencapai minus 4808.42. Ini membuktikan GA mampu menemukan wilayah lembah asimtotik yang sangat dalam."
+      notes: "Berdasarkan eksekusi program dengan seed 42, evolusi berhenti pada generasi ke-96 karena kondisi stagnasi 50 generasi terpenuhi. Solusi terbaik yang diperoleh menghasilkan kromosom biner dengan nilai x1 sekitar 1,5712 dan x2 sekitar minus 0,0007, dengan nilai minimum fungsi mencapai minus 1481,55. Koordinat ini berada tepat di bibir batas aman sebelum garis asimtot pi per 2."
     },
     10: {
       topic: "Kesimpulan & Goals yang Tercapai",
-      notes: "Sebagai kesimpulan, seluruh target yang diberikan pada tugas Case Based Searching ini telah berhasil kami penuhi dengan baik. Program kami berjalan secara mandiri, stabil, dan sukses mengoptimasi fungsi non-linear yang menantang ini. Terima kasih atas perhatian teman-teman dan dosen pengampu, kami membuka ruang untuk sesi diskusi dan tanya jawab."
+      notes: "Sebagai kesimpulan, seluruh target tugas telah berhasil kami penuhi dengan baik. Program kami berjalan secara mandiri, stabil berkat filter singularitas, dan menghasilkan nilai minimum yang optimal secara deterministik. Terima kasih atas perhatian dosen pengampu dan rekan-rekan sekalian, sesi tanya jawab dibuka untuk diskusi."
     }
   };
 

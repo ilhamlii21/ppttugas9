@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Case Based: Searching — Genetic Algorithm (Varian 3)</title>
+  <title>Case Based: Searching — Binary Genetic Algorithm</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
   <!-- TOP SAAS NAVIGATION BAR -->
@@ -21,7 +17,7 @@
       <div class="logo">
         <span class="logo-icon">✦</span>
         <span class="logo-text">Optima<strong>GA</strong></span>
-        <span class="badge-tag">Varian 3</span>
+        <span class="badge-tag">Binary GA 32-Bit</span>
       </div>
     </div>
     <div class="nav-center">
@@ -33,16 +29,11 @@
         <span id="timerDisplay">00:00</span>
       </div>
       <button class="btn-ghost" id="btnNotesToggle" title="Buka Speaker Notes (Shortcut: N)">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-        </svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
         <span>Notes</span>
       </button>
       <button class="btn-solid" id="btnFullscreen" title="Fullscreen (Shortcut: F)">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3">
-          </path>
-        </svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
       </button>
     </div>
   </header>
@@ -69,8 +60,7 @@
           <span class="gradient-text">Without Guesswork</span>
         </h1>
         <p class="hero-subtitle">
-          Implementasi Algoritma Genetika <em>from scratch</em> untuk meminimalkan fungsi non-linear kompleks
-          multivariat dengan kendala singularitas asimtotik.
+          Implementasi <em>Binary-Coded Genetic Algorithm</em> dari nol untuk meminimalkan fungsi non-linear kompleks multivariat dengan Tournament Selection dan Filter Singularitas Asimtot.
         </p>
 
         <!-- TEAM CARDS -->
@@ -78,7 +68,7 @@
           <div class="team-card">
             <div class="avatar avatar-lian">L</div>
             <div class="team-info">
-              <h3>Berlian Seva Astryana</h3>
+              <h3>Lian</h3>
               <p class="role-badge">Lead Developer & Author</p>
               <span class="nim-tag">NIM: 2311104067</span>
             </div>
@@ -104,8 +94,9 @@
           <span class="tech-label">BUILT WITH</span>
           <span class="tech-item">🐍 Python 3</span>
           <span class="tech-item">⚙️ Zero External Libraries</span>
-          <span class="tech-item">🧬 Real-Coded Genome</span>
-          <span class="tech-item">⚡ Log-Compressed Fitness</span>
+          <span class="tech-item">🧬 Binary Genome (32-Bit)</span>
+          <span class="tech-item">🎯 Tournament Selection</span>
+          <span class="tech-item">🛡️ Asymptote Filter</span>
           <span class="tech-item">🎓 Telkom University</span>
         </div>
       </div>
@@ -119,15 +110,14 @@
         <div class="section-tag">01 • DEFINISI MASALAH</div>
         <h2 class="slide-title">Minimasi Fungsi Objektif Non-Linear</h2>
         <p class="slide-description">
-          Diberikan fungsi matematika dua variabel kontinu $(x_1, x_2)$ dengan tujuan menemukan koordinat global yang
-          menghasilkan nilai $f(x_1, x_2)$ seminimum mungkin.
+          Diberikan fungsi matematika dua variabel kontinu $(x_1, x_2)$ dengan tujuan menemukan koordinat global yang menghasilkan nilai $f(x_1, x_2)$ seminimum mungkin.
         </p>
 
         <div class="grid-2-col">
           <div class="card card-math">
             <div class="card-header-label">FUNGSI MATEMATIS TARGET</div>
             <div class="math-display">
-              $$f(x_1, x_2) = -\left(\sin(x_1)\cos(x_2)\tan(x_1+x_2) + \frac{1}{2}\exp(1 - \sqrt{x_2^2})\right)$$
+              $$f(x_1, x_2) = -0.5 \times \left(\sin(x_1)\cos(x_2)\tan(x_1+x_2) + \exp(1 - |x_2|)\right)$$
             </div>
             <div class="domain-tag-box">
               <span class="domain-pill">Domain $x_1$: <strong>[-10.0, 10.0]</strong></span>
@@ -140,16 +130,15 @@
             <ul class="clean-list">
               <li>
                 <strong>Asimtot Tangen $\tan(x_1+x_2)$:</strong>
-                <p>Ketika $x_1 + x_2 \to \frac{\pi}{2} + k\pi$, nilai fungsi $\tan$ melonjak ke $+\infty$ atau
-                  $-\infty$.</p>
+                <p>Ketika $\cos(x_1+x_2) \to 0$ (pada $x_1 + x_2 \to \frac{\pi}{2} + k\pi$), fungsi $\tan$ melonjak menuju tak hingga.</p>
               </li>
               <li>
                 <strong>Jurang Nilai Ekstrem Menuju $-\infty$:</strong>
-                <p>Jika $-\sin(x_1)\cos(x_2) < 0$ dan $\tan(x_1+x_2) \to +\infty$, maka $f(x_1, x_2) \to -\infty$.</p>
+                <p>Input di dekat asimtot menyebabkan gradien curam ekstrem dan rawan memicu <em>ZeroDivisionError</em> atau <em>Overflow</em>.</p>
               </li>
               <li>
-                <strong>Resiko Numerical Overflow:</strong>
-                <p>Tanpa penanganan matematis, individu di dekat asimtot akan menghancurkan variasi seleksi genetik.</p>
+                <strong>Solusi Desain Kami:</strong>
+                <p>Menerapkan filter singularitas eksplisit ($\epsilon = 10^{-4}$): kandidat yang berada di area bahaya asimtot langsung ditolak (diberi Fitness = 0.0).</p>
               </li>
             </ul>
           </div>
@@ -163,55 +152,53 @@
     <section class="slide" data-slide="3" data-topic="Architecture & Pipeline">
       <div class="slide-content">
         <div class="section-tag">02 • ARSITEKTUR SISTEM</div>
-        <h2 class="slide-title">Siklus Evolusi Varian 3 (From Scratch)</h2>
+        <h2 class="slide-title">Siklus Evolusi Binary GA (From Scratch)</h2>
         <p class="slide-description">
-          Seluruh tahapan siklus hidup genetik dibangun menggunakan modul standar Python <code>math</code> dan
-          <code>random</code> tanpa framework pihak ketiga.
+          Seluruh tahapan siklus hidup genetik dibangun menggunakan modul standar Python <code>math</code> dan <code>random</code> tanpa framework pihak ketiga.
         </p>
 
         <div class="flow-container">
           <div class="flow-step">
             <div class="step-num">01</div>
             <h4>Inisialisasi</h4>
-            <p>Populasi 74 individu real-coded $[0, 1]^2$</p>
+            <p>Populasi 74 individu biner 32-bit acak</p>
           </div>
           <div class="flow-arrow">→</div>
           <div class="flow-step">
             <div class="step-num">02</div>
-            <h4>Decode & Eval</h4>
-            <p>Mapping linear $[-10, 10]$ & Log-fitness</p>
+            <h4>Decode</h4>
+            <p>Konversi 16-bit integer ke domain $[-10, 10]$</p>
           </div>
           <div class="flow-arrow">→</div>
           <div class="flow-step">
             <div class="step-num">03</div>
-            <h4>Seleksi Parent</h4>
-            <p>Roulette Wheel berbasis fitness terkompresi</p>
+            <h4>Fitness Invers</h4>
+            <p>Proteksi filter singularitas $\epsilon = 10^{-4}$</p>
           </div>
           <div class="flow-arrow">→</div>
           <div class="flow-step">
             <div class="step-num">04</div>
-            <h4>Crossover</h4>
-            <p>Whole Arithmetic Crossover ($P_c = 0.75$)</p>
+            <h4>Tournament</h4>
+            <p>Seleksi turnamen ukuran $k = 3$</p>
           </div>
           <div class="flow-arrow">→</div>
           <div class="flow-step">
             <div class="step-num">05</div>
-            <h4>Mutasi</h4>
-            <p>Gaussian Perturbation ($P_m = 0.15, \sigma=0.05$)</p>
+            <h4>Crossover & Mut</h4>
+            <p>One-Point ($P_c = 0.85$) & Bit-Flip ($P_m = 0.02$)</p>
           </div>
           <div class="flow-arrow">→</div>
           <div class="flow-step highlight-step">
             <div class="step-num">06</div>
             <h4>Elitisme</h4>
-            <p>Top 5% (4 individu) disalin langsung</p>
+            <p>Top 2 individu disalin langsung ke generasi baru</p>
           </div>
         </div>
 
         <div class="callout-box">
           <span class="callout-icon">💡</span>
           <div>
-            <strong>Kepatuhan Aturan Tugas:</strong> Mengacu rubrik penilaian, fungsi-fungsi inti GA tidak menggunakan
-            toolbox library (seperti DEAP atau PyGAD), memastikan integritas kode 100% orisinal.
+            <strong>Kepatuhan Regulasi & Replikasi:</strong> Kode murni tanpa library GA eksternal (bebas dari DEAP/PyGAD). Menggunakan <code>RANDOM_SEED = 42</code> untuk menjamin hasil dapat direplikasi dan diverifikasi secara konsisten.
           </div>
         </div>
       </div>
@@ -223,46 +210,48 @@
     <section class="slide" data-slide="4" data-topic="Chromosome & Decode">
       <div class="slide-content">
         <div class="section-tag">03 • REPRESENTASI KROMOSOM</div>
-        <h2 class="slide-title">Real-Coded Genome & Linear Mapping</h2>
+        <h2 class="slide-title">Binary-Coded Genome (32-Bit) & Decoding</h2>
         <p class="slide-description">
-          Memilih representasi bilangan riil (*continuous space*) untuk menghindari diskritisasi dan distorsi resolusi
-          yang kerap terjadi pada representasi biner.
+          Menggunakan representasi biner standar dengan alokasi 16-bit per variabel kontinu untuk memberikan resolusi diskrit yang sangat halus.
         </p>
 
         <div class="grid-2-col">
           <div class="card">
-            <div class="card-header-label">STRUKTUR KROMOSOM</div>
+            <div class="card-header-label">STRUKTUR KROMOSOM BINER (32 BIT)</div>
             <div class="chromosome-visual">
               <div class="gene-box">
-                <span class="gene-label">Gen 1 ($g_1$)</span>
-                <span class="gene-val">0.40990667</span>
-                <span class="gene-sub">Mengkodekan $x_1 \in [0.0, 1.0]$</span>
+                <span class="gene-label">Gen $x_1$ (Bit 0 – 15)</span>
+                <span class="gene-val" style="font-size:1rem; letter-spacing:1px;">1001010000011100</span>
+                <span class="gene-sub">Desimal: 37916 $\to x_1 \approx 1.5712$</span>
               </div>
               <div class="gene-box">
-                <span class="gene-label">Gen 2 ($g_2$)</span>
-                <span class="gene-val">0.51156336</span>
-                <span class="gene-sub">Mengkodekan $x_2 \in [0.0, 1.0]$</span>
+                <span class="gene-label">Gen $x_2$ (Bit 16 – 31)</span>
+                <span class="gene-val" style="font-size:1rem; letter-spacing:1px;">0111111111111101</span>
+                <span class="gene-sub">Desimal: 32765 $\to x_2 \approx -0.0007$</span>
               </div>
             </div>
             <div class="stat-pill-row">
-              <span class="pill-stat">Populasi: <strong>74 Individu</strong></span>
-              <span class="pill-stat">Panjang: <strong>2 Gen</strong></span>
-              <span class="pill-stat">Tipe: <strong>Float64</strong></span>
+              <span class="pill-stat">Total: <strong>32 Bit</strong></span>
+              <span class="pill-stat">Per Gen: <strong>16 Bit</strong></span>
+              <span class="pill-stat">Resolusi: <strong>$\approx 0.0003$</strong></span>
             </div>
           </div>
 
           <div class="card">
-            <div class="card-header-label">FORMULA DEKODE LINEAR</div>
+            <div class="card-header-label">FORMULA DEKODE BINER KE DESIMAL</div>
             <div class="code-box">
-              <pre><code>def dekode(kromosom):
-    # Mapping [0, 1] ke [-10, 10]
-    x1 = -10.0 + kromosom[0] * (10.0 - (-10.0))
-    x2 = -10.0 + kromosom[1] * (10.0 - (-10.0))
+<pre><code>def decode(kromosom):
+    gen_x1 = kromosom[:16]
+    gen_x2 = kromosom[16:]
+    desimal_x1 = int(gen_x1, 2)
+    desimal_x2 = int(gen_x2, 2)
+    maks = (2 ** 16) - 1 # 65535
+    x1 = -10.0 + (desimal_x1 / maks) * 20.0
+    x2 = -10.0 + (desimal_x2 / maks) * 20.0
     return x1, x2</code></pre>
             </div>
             <p class="card-note">
-              Formula ini menjamin seluruh kombinasi genetik selalu menghasilkan nilai $x_1, x_2$ yang berada tepat di
-              dalam batas domain yang diizinkan tanpa memerlukan pemotongan paksa.
+              Dengan panjang gen 16-bit, setiap domain rentang 20.0 dibagi menjadi $65.535$ interval, memberikan ketelitian hingga 4 desimal.
             </p>
           </div>
         </div>
@@ -270,39 +259,39 @@
     </section>
 
     <!-- ==========================================
-         SLIDE 5: FITNESS & LOG COMPRESSION
+         SLIDE 5: FITNESS & SINGULARITY FILTER
          ========================================== -->
-    <section class="slide" data-slide="5" data-topic="Fitness & Log Compression">
+    <section class="slide" data-slide="5" data-topic="Fitness & Singularity Filter">
       <div class="slide-content">
         <div class="section-tag">04 • INOVASI FITNESS</div>
-        <h2 class="slide-title">Penanganan Singularitas via Logarithmic Compression</h2>
+        <h2 class="slide-title">Evaluasi Fitness & Filter Singularitas Eksplisit</h2>
         <p class="slide-description">
-          Strategi transformasi objektif untuk mencegah satu "super-individu" di dekat asimtot memonopoli seluruh
-          probabilitas seleksi.
+          Strategi perlindungan numerik terhadap singularitas tangen dan transformasi fungsi minimasi menjadi nilai fitness non-negatif.
         </p>
 
         <div class="grid-2-col">
           <div class="card">
-            <div class="card-header-label">1. TRANSFORMASI KE MAKSIMASI</div>
-            <p class="card-text">Karena persoalan berupa <strong>minimasi</strong>, maka nilai dinaikkan menjadi masalah
-              maksimasi:</p>
+            <div class="card-header-label">1. FILTER SINGULARITAS ASIMTOT</div>
+            <p class="card-text">Sebelum fungsi dihitung, periksa nilai pembagi kosinus:</p>
             <div class="formula-banner">
-              $$g(x_1, x_2) = -f(x_1, x_2)$$
+              $$|\cos(x_1 + x_2)| < \epsilon \quad (\epsilon = 10^{-4})$$
             </div>
-            <p class="card-text">Masalah timbul saat $g$ mencapai angka jutaan: seleksi proporsional akan bias 99.9%
-              hanya ke 1 individu, mematikan diversitas genetik.</p>
+            <ul class="clean-list">
+              <li>• Jika bernilai <code>True</code>, kandidat berada di zona bahaya singularitas asimtot.</li>
+              <li>• Fungsi langsung mengembalikan <code>None</code>.</li>
+              <li>• Individu cacat langsung diganjar <strong>Fitness = 0.0</strong> sehingga tidak akan terpilih menjadi induk.</li>
+            </ul>
           </div>
 
           <div class="card card-featured">
-            <div class="card-header-label highlight-text">2. KOMPRESI LOGARITMIK STABIL</div>
+            <div class="card-header-label highlight-text">2. FORMULA FITNESS INVERSI STANDAR</div>
             <div class="formula-banner featured-banner">
-              $$\text{Fitness}_i = \ln(1 + g_i - g_{\min}) + 10^{-9}$$
+              $$\text{Fitness}_i = \frac{1.0}{1.0 + \max(0.0, f_i - f_{\min})}$$
             </div>
             <ul class="bullet-checklist">
-              <li>✅ <strong>Non-Negatif:</strong> Nilai fitness selalu $\ge 0$ untuk seluruh populasi.</li>
-              <li>✅ <strong>Rank-Preserving:</strong> Urutan keunggulan kromosom tidak berubah.</li>
-              <li>✅ <strong>Damped Variance:</strong> Lonjakan ekstrem diredam secara logaritmik, menjaga roda roulette
-                tetap proporsional.</li>
+              <li>✅ <strong>Monoton Menurun:</strong> Individu dengan nilai objektif $f$ paling kecil (paling negatif) memperoleh selisih 0, sehingga $\text{Fitness} = 1.0$ (maksimum).</li>
+              <li>✅ <strong>Non-Negatif:</strong> Seluruh nilai fitness berada di dalam rentang $(0.0, 1.0]$.</li>
+              <li>✅ <strong>Robust:</strong> Kebal terhadap nilai minus besar tanpa perlu operasi logaritma.</li>
             </ul>
           </div>
         </div>
@@ -310,50 +299,46 @@
     </section>
 
     <!-- ==========================================
-         SLIDE 6: PARENT SELECTION (ROULETTE WHEEL)
+         SLIDE 6: PARENT SELECTION (TOURNAMENT)
          ========================================== -->
-    <section class="slide" data-slide="6" data-topic="Parent Selection">
+    <section class="slide" data-slide="6" data-topic="Tournament Selection">
       <div class="slide-content">
         <div class="section-tag">05 • SELEKSI ORANG TUA</div>
-        <h2 class="slide-title">Roulette Wheel Berbasis Compressed Fitness</h2>
+        <h2 class="slide-title">Tournament Selection (Ukuran Turnamen $k = 3$)</h2>
         <p class="slide-description">
-          Memilih induk terbaik secara stokastik sebanding dengan kontribusi fitness terkompresi dari masing-masing
-          individu.
+          Memilih orang tua menggunakan kompetisi lokal acak untuk memastikan tekanan seleksi stabil tanpa terdistorsi skala fitness populasi.
         </p>
 
         <div class="grid-2-col">
           <div class="card">
-            <div class="card-header-label">PROBABILITAS SELEKSI</div>
-            <div class="formula-banner">
-              $$P(k) = \frac{\text{Fitness}_k}{\sum_{j=1}^{N} \text{Fitness}_j}$$
-            </div>
+            <div class="card-header-label">MEKANISME TURNAMEN</div>
             <div class="code-box">
-              <pre><code>total = sum(fitness)
-r = random.uniform(0, total)
-kumulatif = 0.0
-for individu, f in zip(populasi, fitness):
-    kumulatif += f
-    if r <= kumulatif:
-        return individu</code></pre>
+<pre><code>def seleksi_orang_tua(populasi, fitness):
+    # Ambil 3 peserta secara acak
+    peserta = random.sample(range(len(populasi)), 3)
+    indeks_terbaik = peserta[0]
+    for idx in peserta[1:]:
+        if fitness[idx] > fitness[indeks_terbaik]:
+            indeks_terbaik = idx
+    return populasi[indeks_terbaik]</code></pre>
             </div>
+            <p class="card-note">3 kandidat bertarung, kandidat dengan fitness tertinggi terpilih menjadi orang tua.</p>
           </div>
 
           <div class="card card-info">
-            <div class="card-header-label">KARAKTERISTIK METODE</div>
-            <div class="feature-item">
-              <div class="feature-icon">⚖️</div>
-              <div>
-                <strong>Eksploitasi & Eksplorasi Berimbang:</strong>
-                <p>Individu fit memiliki peluang terpilih lebih tinggi, namun individu dengan fitness sedang tetap
-                  memiliki kesempatan berevolusi.</p>
-              </div>
-            </div>
+            <div class="card-header-label">KEUNGGULAN DIBANDING ROULETTE WHEEL</div>
             <div class="feature-item">
               <div class="feature-icon">🛡️</div>
               <div>
-                <strong>Anti-Stagnansi Dini:</strong>
-                <p>Berkat kompresi logaritma pada Slide 5, roda seleksi tidak dimonopoli oleh anomali singularitas
-                  tangen.</p>
+                <strong>Kebal Bias Skala Ekstrem:</strong>
+                <p>Tournament selection hanya membandingkan urutan (peringkat relatif) antar-3 peserta, bukan nilai proporsi absolut. Satu individu ekstrem tidak akan merusak jalannya seleksi.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">⚡</div>
+              <div>
+                <strong>Komputasi Cepat & Adaptif:</strong>
+                <p>Efisiensi $O(k)$ per seleksi, menjaga keragaman genetik dan menghindari konvergensi dini.</p>
               </div>
             </div>
           </div>
@@ -362,38 +347,38 @@ for individu, f in zip(populasi, fitness):
     </section>
 
     <!-- ==========================================
-         SLIDE 7: GENETIC OPERATORS
+         SLIDE 7: GENETIC OPERATORS (ONE-POINT & BIT-FLIP)
          ========================================== -->
     <section class="slide" data-slide="7" data-topic="Genetic Operators">
       <div class="slide-content">
         <div class="section-tag">06 • OPERASI GENETIK</div>
-        <h2 class="slide-title">Arithmetic Crossover & Gaussian Mutation</h2>
+        <h2 class="slide-title">One-Point Crossover & Bit-Flip Mutation</h2>
         <p class="slide-description">
-          Kombinasi rekombinasi linear dan perturbasi stokastik kontinu untuk menghasilkan keturunan berkualitas tinggi.
+          Operator genetika standar representasi biner untuk rekombinasi struktur genetik dan eksplorasi ruang diskrit.
         </p>
 
         <div class="grid-2-col">
           <!-- Crossover -->
           <div class="card operator-card">
-            <div class="operator-badge badge-crossover">CROSSOVER • $P_c = 0.75$</div>
-            <h3>Whole Arithmetic Crossover</h3>
-            <p>Mengkombinasikan kedua orang tua secara linier dengan bobot acak $\alpha \sim U(0, 1)$:</p>
+            <div class="operator-badge badge-crossover">CROSSOVER • $P_c = 0.85$</div>
+            <h3>One-Point Crossover</h3>
+            <p>Dengan probabilitas 85%, titik potong acak $k \in [1, 31]$ dipilih untuk membelah kromosom:</p>
             <div class="formula-box">
-              $$c_1 = \alpha \cdot p_1 + (1 - \alpha) \cdot p_2$$
-              $$c_2 = (1 - \alpha) \cdot p_1 + \alpha \cdot p_2$$
+              $$\text{Anak}_1 = P_{1}[0..k] + P_{2}[k..31]$$
+              $$\text{Anak}_2 = P_{2}[0..k] + P_{1}[k..31]$$
             </div>
-            <span class="tag-advantage">✨ Anak selalu berada dalam domain cembung valid $[0, 1]$</span>
+            <span class="tag-advantage">✨ Rekombinasi blok bangunan genetik (*building blocks*) yang efektif</span>
           </div>
 
           <!-- Mutation -->
           <div class="card operator-card">
-            <div class="operator-badge badge-mutation">MUTASI • $P_m = 0.15$</div>
-            <h3>Gaussian Perturbation</h3>
-            <p>Menambahkan derau normal terkontrol dengan simpangan baku $\sigma = 0.05$:</p>
+            <div class="operator-badge badge-mutation">MUTASI • $P_m = 0.02$ / bit</div>
+            <h3>Bit-Flip Mutation</h3>
+            <p>Setiap bit secara independen berpeluang 2% untuk dibalik nilainya:</p>
             <div class="formula-box">
-              $$g' = \min(1.0, \max(0.0, g + \mathcal{N}(0, \sigma^2)))$$
+              $$0 \longleftrightarrow 1 \quad (\text{Probabilitas } 0.02 \text{ per bit})$$
             </div>
-            <span class="tag-advantage">✨ Eksplorasi lokal presisi dengan boundary clipping</span>
+            <span class="tag-advantage">✨ Eksplorasi genetik untuk meloloskan diri dari optimum lokal</span>
           </div>
         </div>
       </div>
@@ -405,10 +390,9 @@ for individu, f in zip(populasi, fitness):
     <section class="slide" data-slide="8" data-topic="Generational Replacement">
       <div class="slide-content">
         <div class="section-tag">07 • SURVIVOR SELECTION & TERMINASI</div>
-        <h2 class="slide-title">Elitisme 5% & Kriteria Penghentian Evolusi</h2>
+        <h2 class="slide-title">Elitisme 2 Individu & Kriteria Penghentian</h2>
         <p class="slide-description">
-          Menjaga solusi terbaik sepanjang masa (*best-so-far*) agar tidak hilang atau terdegradasi oleh operasi genetik
-          acak.
+          Menjaga solusi terbaik sepanjang masa (*best-so-far*) agar tidak hilang atau terdegradasi oleh operasi genetik acak.
         </p>
 
         <div class="grid-2-col">
@@ -416,18 +400,17 @@ for individu, f in zip(populasi, fitness):
             <div class="card-header-label">STRUKTUR GENERASI BARU ($N = 74$)</div>
             <div class="split-visual">
               <div class="split-left">
-                <span class="split-num">4</span>
-                <span class="split-title">Elitisme (5%)</span>
-                <span class="split-desc">4 individu terbaik langsung disalin utuh tanpa mutasi</span>
+                <span class="split-num">2</span>
+                <span class="split-title">Elitisme (~2.7%)</span>
+                <span class="split-desc">2 individu terbaik langsung disalin utuh tanpa mutasi</span>
               </div>
               <div class="split-right">
-                <span class="split-num">70</span>
-                <span class="split-title">Offspring Baru (95%)</span>
-                <span class="split-desc">Dihasilkan melalui Roulette + Crossover + Mutasi</span>
+                <span class="split-num">72</span>
+                <span class="split-title">Offspring Baru (~97.3%)</span>
+                <span class="split-desc">Dihasilkan melalui Tournament + Crossover + Mutasi</span>
               </div>
             </div>
-            <p class="card-note">Elitisme menjamin kurva performa terbaik bersifat monoton menurun (tidak pernah
-              memburuk).</p>
+            <p class="card-note">Elitisme menjamin kurva nilai terbaik bersifat monoton menurun (tidak pernah memburuk seiring bertambahnya generasi).</p>
           </div>
 
           <div class="card card-criteria">
@@ -436,22 +419,22 @@ for individu, f in zip(populasi, fitness):
               <div class="criteria-item">
                 <span class="crit-badge">Kondisi 1</span>
                 <div>
-                  <strong>Target Nilai Tercapai:</strong>
-                  <p>$f(x_1, x_2) \le -10^6$ (mencapai nilai ekstrem target)</p>
+                  <strong>Batas Generasi Maksimum:</strong>
+                  <p>Berhenti jika telah mencapai batas 250 generasi evolusi.</p>
                 </div>
               </div>
               <div class="criteria-item">
                 <span class="crit-badge">Kondisi 2</span>
                 <div>
-                  <strong>Batas Generasi:</strong>
-                  <p>Maksimal 250 generasi evolusi</p>
+                  <strong>Kondisi Stagnasi Solusi:</strong>
+                  <p>Berhenti jika tidak ada perbaikan solusi selama <strong>50 generasi berturut-turut</strong>.</p>
                 </div>
               </div>
               <div class="criteria-item">
-                <span class="crit-badge">Kondisi 3</span>
+                <span class="crit-badge">Replikasi</span>
                 <div>
-                  <strong>Kondisi Stagnasi:</strong>
-                  <p>Tidak ada perbaikan solusi selama 40 generasi beruntun</p>
+                  <strong>Penguncian Nilai Acak (Seed):</strong>
+                  <p><code>RANDOM_SEED = 42</code> untuk konsistensi eksperimen.</p>
                 </div>
               </div>
             </div>
@@ -468,8 +451,7 @@ for individu, f in zip(populasi, fitness):
         <div class="section-tag">08 • HASIL EKSPERIMEN</div>
         <h2 class="slide-title">Hasil Eksekusi & Konvergensi Program</h2>
         <p class="slide-description">
-          Pengujian eksekusi nyata dari script <code>ga_varian.py</code> yang dijalankan hingga kriteria terminasi
-          terpenuhi.
+          Pengujian eksekusi nyata dari script <code>ga_varian.py</code> dengan <code>RANDOM_SEED = 42</code> hingga kriteria terminasi terpenuhi.
         </p>
 
         <div class="grid-results">
@@ -482,18 +464,29 @@ for individu, f in zip(populasi, fitness):
               <span class="terminal-title">python ga_varian.py</span>
             </div>
             <div class="terminal-body">
-              <pre><code>Generasi   1 | f(x) terbaik = -6.603255
-Generasi  10 | f(x) terbaik = -28.288375
-Generasi  30 | f(x) terbaik = -51.620762
-Generasi  50 | f(x) terbaik = -407.996739
-Generasi  80 | f(x) terbaik = -4808.418925
-Generasi 110 | f(x) terbaik = -4808.418925
-Berhenti di generasi 116: stagnan 40 generasi.
+<pre><code>Generasi: 1  | Nilai terbaik: -6.11171203
+Generasi: 25 | Nilai terbaik: -1481.55202719
+Generasi: 50 | Nilai terbaik: -1481.55311615
+Generasi: 75 | Nilai terbaik: -1481.55311615
 
-=========== HASIL ===========
-Kromosom terbaik : [0.40990667, 0.51156336]
-Hasil dekode     : x1 = -1.801867 , x2 = 0.231267
-Nilai f(x1,x2)   : -4808.418925</code></pre>
+Berhenti karena tidak ada perbaikan selama 50 generasi.
+
+ HASIL GENETIC ALGORITHM 
+Random seed             : 42
+Ukuran populasi         : 74
+Panjang kromosom        : 32 bit
+Tournament size         : 3
+Probabilitas crossover  : 0.85
+Probabilitas mutasi     : 0.02
+Jumlah elit             : 2
+Generasi dijalankan     : 96
+
+Kromosom terbaik       : 10010100000111000111111111111101
+Gen untuk x1           : 1001010000011100
+Gen untuk x2           : 0111111111111101
+Nilai x1 hasil decode  : 1.5712214847
+Nilai x2 hasil decode  : -0.0007629511
+Nilai fungsi           : -1481.553116153975</code></pre>
             </div>
           </div>
 
@@ -501,18 +494,18 @@ Nilai f(x1,x2)   : -4808.418925</code></pre>
           <div class="kpi-stack">
             <div class="kpi-card highlight-kpi">
               <span class="kpi-label">NILAI MINIMUM f(x) TERCAPAI</span>
-              <span class="kpi-value">-4808.4189</span>
-              <span class="kpi-sub">Lembah fungsi asimtotik berhasil ditemukan</span>
+              <span class="kpi-value">-1481.5531</span>
+              <span class="kpi-sub">Lembah fungsi optimal di batas aman singularitas</span>
             </div>
             <div class="kpi-card">
               <span class="kpi-label">KOORDINAT TERBAIK (HASIL DEKODE)</span>
-              <span class="kpi-coord">$x_1 = -1.801867$ &nbsp;|&nbsp; $x_2 = 0.231267$</span>
-              <span class="kpi-sub">Kromosom: [0.40990667, 0.51156336]</span>
+              <span class="kpi-coord">$x_1 = 1.571221$ &nbsp;|&nbsp; $x_2 = -0.000763$</span>
+              <span class="kpi-sub">Jumlah $x_1 + x_2 = 1.5704585 \approx \pi/2$</span>
             </div>
             <div class="kpi-card">
               <span class="kpi-label">STATUS KONVERGENSI</span>
-              <span class="kpi-badge-success">Konvergen Stabil di Gen 116</span>
-              <span class="kpi-sub">Terhenti via Kriteria Stagnan 40 Generasi</span>
+              <span class="kpi-badge-success">Konvergen di Gen 96</span>
+              <span class="kpi-sub">Terhenti via Kriteria Stagnan 50 Generasi</span>
             </div>
           </div>
         </div>
@@ -530,31 +523,29 @@ Nilai f(x1,x2)   : -4808.418925</code></pre>
         </div>
         <h2 class="slide-title">Kesimpulan & Ketercapaian Goals</h2>
         <p class="hero-subtitle">
-          Algoritma Genetika Varian 3 sukses memecahkan persoalan optimasi non-linear yang menantang secara mandiri,
-          stabil, dan presisi.
+          Algoritma Genetika Biner 32-bit berhasil menemukan solusi minimum global fungsi non-linear secara mandiri, stabil, dan terbebas dari kendala numerik.
         </p>
 
         <div class="goals-grid">
           <div class="goal-item">
             <div class="goal-icon">🏆</div>
             <h4>100% Native Implementation</h4>
-            <p>Seluruh tahapan inisialisasi, reproduksi, mutasi, dan seleksi dibangun murni tanpa library GA pihak
-              ketiga.</p>
+            <p>Seluruh proses inisialisasi, reproduksi biner, dan turnamen dibangun murni tanpa library GA pihak ketiga.</p>
           </div>
           <div class="goal-item">
-            <div class="goal-icon">🎯</div>
-            <h4>Stabilitas Numerik Singularitas</h4>
-            <p>Inovasi kompresi logaritma terbukti efektif mengatasi kendala asimtot $\tan(x_1+x_2)$ tanpa overflow.</p>
+            <div class="goal-icon">🛡️</div>
+            <h4>Stabilitas Filter Singularitas</h4>
+            <p>Threshold $\epsilon = 10^{-4}$ berhasil melindungi evaluasi dari lonjakan tak terkontrol akibat asimtot $\tan(x_1+x_2)$.</p>
           </div>
           <div class="goal-item">
             <div class="goal-icon">⚡</div>
-            <h4>Efisiensi & Konvergensi Cepat</h4>
-            <p>Kombinasi Arithmetic Crossover dan Elitisme 5% berhasil menemukan solusi optimal dalam 116 generasi.</p>
+            <h4>Konvergensi Cepat & Stabil</h4>
+            <p>Kombinasi Tournament ($k=3$) dan Elitisme 2 individu mencapai konvergensi stabil pada generasi ke-96.</p>
           </div>
           <div class="goal-item">
             <div class="goal-icon">📦</div>
-            <h4>Deliverables Lengkap</h4>
-            <p>Source code bersih, laporan komprehensif, slide interaktif, dan video presentasi siap dikumpulkan.</p>
+            <h4>Deliverables Lengkap & Replikatif</h4>
+            <p>Source code bersih, laporan terstruktur, slide interaktif, dan hasil deterministik via <code>RANDOM_SEED = 42</code>.</p>
           </div>
         </div>
 
@@ -579,15 +570,11 @@ Nilai f(x1,x2)   : -4808.418925</code></pre>
 
       <div class="dock-controls">
         <button class="dock-btn" id="btnPrev" title="Slide Sebelumnya (Arrow Left)">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
         </button>
         <button class="dock-btn dock-btn-primary" id="btnNext" title="Slide Berikutnya (Arrow Right / Space)">
           <span>Next</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </button>
       </div>
 
@@ -603,17 +590,13 @@ Nilai f(x1,x2)   : -4808.418925</code></pre>
       <div class="dock-divider"></div>
 
       <button class="dock-btn btn-dock-hide" id="btnHideDock" title="Sembunyikan Navigasi (Shortcut: H)">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M6 9l6 6 6-6" />
-        </svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
       </button>
     </div>
 
     <!-- REVEAL PILL BUTTON (SHOWN WHEN DOCK IS HIDDEN) -->
     <button class="dock-reveal-pill" id="btnShowDock" title="Tampilkan Navigasi (Shortcut: H)">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <path d="M18 15l-6-6-6 6" />
-      </svg>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
       <span>Navigasi</span>
       <span class="key-shortcut-light">H</span>
     </button>
@@ -635,5 +618,4 @@ Nilai f(x1,x2)   : -4808.418925</code></pre>
 
   <script src="script.js"></script>
 </body>
-
 </html>
